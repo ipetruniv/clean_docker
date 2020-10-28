@@ -28,6 +28,7 @@ pipeline {
                                     docker ps -a
                                     for container in \$(docker ps -a | grep -v CONTAINER | grep -v UP | awk \'{print \$1}\'); do echo \$container; done;
                                     echo "Images:"
+                                    for image in `docker image ls | grep -v REPOSITORY | awk \'{print \$3}\'`; do echo \$image; done;
                                     docker images ls
                                     echo "Done"
                                     """)
