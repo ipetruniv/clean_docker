@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                      JenkinsNodes =  [ "AzureAgent06, AzureAgent01, AzureAgent02, AzureAgent03, AzureAgent04, AzureAgent05" ]
+                      def JenkinsNodes =  ["AzureAgent06", "AzureAgent01", "AzureAgent02", "AzureAgent03", "AzureAgent04", "AzureAgent05"]
                       JenkinsNodesListLenght = JenkinsNodes.length - 1
                       println("${JenkinsNodesListLenght}")
 
