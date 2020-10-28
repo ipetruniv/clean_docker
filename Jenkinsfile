@@ -16,7 +16,7 @@ pipeline {
 
     agent {
         node {
-            label ('dev'||'master'||'AzureAgent06||AzureAgent01||AzureAgent02||AzureAgent03||AzureAgent04||AzureAgent05')
+            label 'dev'
         }
     }
 
