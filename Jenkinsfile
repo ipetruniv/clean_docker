@@ -2,10 +2,6 @@ import jenkins.model.*
 import hudson.model.*
 import java.time.*
 
-def Clean(NodeName) {
-           
-        }
-
 pipeline {
     triggers {
         cron('''TZ=Europe/Kiev
