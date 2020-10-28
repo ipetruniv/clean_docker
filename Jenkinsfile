@@ -26,10 +26,11 @@ pipeline {
                                 sh("""#!/bin/bash
                                     echo "Stopped containers:"
                                     docker ps -a
-                                    for container in \$(docker ps -a | grep -v CONTAINER | grep -v UP | awk \'{print \$1}\'); do echo \$container; done;
+                                    for container in \$(docker ps -a | grep -v CONTAINER | grep -v UP | awk \'{print \$1}\'); do docker rm \$container; done;
                                     echo "Images:"
-                                    for image in `docker image ls | grep -v REPOSITORY | awk \'{print \$3}\'`; do echo \$image; done;
+                                    for image in `docker image ls | grep -v REPOSITORY | awk \'{print \$3}\'`; do docker rmi \$image; done;
                                     docker images ls
+                                    docker images
                                     echo "Done"
                                     """)
                             }
