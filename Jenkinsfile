@@ -25,7 +25,7 @@ pipeline {
                             node { label "${it}"}
                                 sh"""#!/bin/bash
                                     echo "Stopped containers:"
-                                    for container in $(docker ps -a | grep -v CONTAINER | grep -v UP | awk '{print $1}'); do echo $container; done;
+                                    docker ps -a
                                     echo "Images:"
                                     docker images ls
                                     echo "Done"
