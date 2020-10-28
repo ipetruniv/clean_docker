@@ -35,8 +35,8 @@ pipeline {
             steps {
                 script {
                      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    ${JenkinsNodes}.each {
-                        println("Node $it")
+                    $JenkinsNodes.eachWithIndex  {
+                        println("Index: $i Value: $it")
                     }
                     }
                 }
