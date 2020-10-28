@@ -28,14 +28,9 @@ pipeline {
             steps {
                 script {
                      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                      def JenkinsNodes =  ["AzureAgent06", "AzureAgent01", "AzureAgent02", "AzureAgent03", "AzureAgent04", "AzureAgent05"]
-                      JenkinsNodesListLenght = JenkinsNodes.length - 1
-                      println("${JenkinsNodesListLenght}")
-
-                      for ( idx=0; idx<JenkinsNodesListLenght; idx+=1 ){
-                        def NodeName = JenkinsNodesList[idx]
-                        println("${NodeName}")
-                        //Clean("${NodeName}")
+                      def JenkinsNodes = 'AzureAgent06, AzureAgent01, AzureAgent02, AzureAgent03, AzureAgent04, AzureAgent05'
+                      JenkinsNodes.tokenize(',').each {
+                        println "Item: ${it}"
                         }
                     }
                 }
