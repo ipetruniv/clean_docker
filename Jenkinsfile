@@ -30,8 +30,8 @@ pipeline {
                     }
                 }
             }
-        }
-                stage ('Clean Images') {
+            
+        stage ('Clean Images') {
             steps {
                 script {
                      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
