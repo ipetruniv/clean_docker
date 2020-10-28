@@ -11,11 +11,11 @@ def Clean(NodeName) {
         }
 
 pipeline {
-    parameters {
-        string(name: "JenkinsNodes",
-        defaultValue: "AzureAgent06, AzureAgent01, AzureAgent02, AzureAgent03, AzureAgent04, AzureAgent05",
-        description: "Comma separated Jenkins nodes to clean docker")
-    }
+    // parameters {
+    //     string(name: "JenkinsNodes",
+    //     defaultValue: "AzureAgent06, AzureAgent01, AzureAgent02, AzureAgent03, AzureAgent04, AzureAgent05",
+    //     description: "Comma separated Jenkins nodes to clean docker")
+    // }
 
     agent {
         node {
@@ -28,15 +28,14 @@ pipeline {
             steps {
                 script {
                      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                      NodesList = "${JenkinsNodes}".split(', ')
-                      println("${NodesList}")
-
-                      NodeListLenght = NodesList.length - 1
+                      Nodes =  [ "AzureAgent06, AzureAgent01, AzureAgent02, AzureAgent03, AzureAgent04, AzureAgent05" ]
+                      NodesListLenght = Nodes.length - 1
                       println("${NodeListLenght}")
 
-                      for ( idx=0; idx<NodeListLenght; idx+=1 ){
-                        def NodeName=NodeList[idx]
-                        Clean(NodeName)
+                      for ( idx=0; idx<NodesListLenght; idx+=1 ){
+                        def NodeName = NodesList[idx]
+                        println("${NodeName}")
+                        //Clean("${NodeName}")
                         }
                     }
                 }
@@ -47,9 +46,9 @@ pipeline {
             steps {
                 script {
                      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') { 
-                     NodesList.eachWithIndex  {
+                     $NodesList.eachWithIndex  {
                         println("Index: $i Value: $it")
-                    }
+                        }
                     }
                 }
             }
