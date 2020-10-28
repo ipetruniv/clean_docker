@@ -24,8 +24,9 @@ pipeline {
         stage ('Clean Containers') {
             steps {
                 script {
-                    $JenkinsNodes.each {
-                        println("Node $it")
+                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        println("Stage")
+                     }
                     }
                 }
             }
@@ -33,8 +34,10 @@ pipeline {
                 stage ('Clean Images') {
             steps {
                 script {
+                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     $JenkinsNodes.each {
                         println("Node $it")
+                    }
                     }
                 }
             }
