@@ -2,8 +2,6 @@ import jenkins.model.*
 import hudson.model.*
 import java.time.*
 
-def env.JenkinsNodes = ["AzureAgent06", "AzureAgent01", "AzureAgent02", "AzureAgent03", "AzureAgent04", "AzureAgent05"]
-
 def Clean(NodeName) {
     script{
            sh """
@@ -13,6 +11,9 @@ def Clean(NodeName) {
         }
 
 pipeline {
+    environment {
+        JenkinsNodes = ["AzureAgent06", "AzureAgent01", "AzureAgent02", "AzureAgent03", "AzureAgent04", "AzureAgent05"]
+    }
 
     agent {
         node {
