@@ -24,11 +24,11 @@ pipeline {
                         stage("${it}") {
                             node { label "${it}"}
                             steps {
-                                sh """
+                                sh"""#!/bin/bash
                                     echo "Stopped containers:"
-                                    #for container in `docker ps -a | grep -v CONTAINER | grep -v UP | awk '{print $1}'`; do echo $container; done;
+                                    docker ps -a
                                     echo "Images:"
-                                    #for image in `docker image ls | grep -v REPOSITORY | awk '{print $3}'`; do echo $image; done;
+                                    docker images ls
                                     echo "Done"
                                     """
                             }
