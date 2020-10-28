@@ -11,8 +11,10 @@ def Clean(NodeName) {
         }
 
 pipeline {
-    environment {
-        JenkinsNodes = ["AzureAgent06", "AzureAgent01", "AzureAgent02", "AzureAgent03", "AzureAgent04", "AzureAgent05"]
+    parameters {
+        string(name: "JenkinsNodes",
+        defaultValue: "AzureAgent06, AzureAgent01, AzureAgent02, AzureAgent03, AzureAgent04, AzureAgent05"
+        description: "Comma separated Jenkins nodes to clean docker"
     }
 
     agent {
@@ -26,11 +28,16 @@ pipeline {
             steps {
                 script {
                      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        Clean("Stage")
-                     }
+                      NodesList = "${JenkinsNodes}".split(', ')
+                      NodeListLenght = NodesList.length - 1
+                      for ( idx=0; idx<NodeListLenght; idx+=1 ){
+                        def NodeName=NodeList[idx]
+                        Clean(NodeName)
+                        }
                     }
                 }
             }
+        }
 
         stage ('Clean Images') {
             steps {
