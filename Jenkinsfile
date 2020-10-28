@@ -16,7 +16,7 @@ pipeline {
 
     agent {
         node {
-            label 'dev'||'master'||'AzureAgent06||AzureAgent01||AzureAgent02||AzureAgent03||AzureAgent04||AzureAgent05'
+            label ('dev'||'master'||'AzureAgent06||AzureAgent01||AzureAgent02||AzureAgent03||AzureAgent04||AzureAgent05')
         }
     }
 
@@ -25,12 +25,12 @@ pipeline {
             steps {
                 script {
                      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        println("Stage")
+                        Clean("Stage")
                      }
                     }
                 }
             }
-            
+
         stage ('Clean Images') {
             steps {
                 script {
