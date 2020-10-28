@@ -26,7 +26,7 @@ pipeline {
                                 sh("""#!/bin/bash
                                     echo "Stopped containers:"
                                     docker ps -a
-                                    for container in $(docker ps -a | grep -v CONTAINER | grep -v UP | awk \'{print $1}\'); do echo $container; done;
+                                    docker rm $(docker ps -a | grep -v "CONTAINER" | grep -v "UP" | awk \'{print $1}\')
                                     echo "Images:"
                                     docker images ls
                                     echo "Done"
