@@ -5,17 +5,20 @@ import java.time.*
 def Clean(NodeName) {
     script{
            sh """
-           echo "Nodename ${NodeName}"
+            echo "Stopped containers:"
+            for container in `docker ps -a | grep -v CONTAINER | grep -v UP | awk '{print $1}'`; do echo $container; done;
+            echo "Images:"
+            for image in `docker image ls | grep -v REPOSITORY | awk '{print $3}'`; do echo $image; done;
+            echo "Done"
             """
             }
         }
 
 pipeline {
-    // parameters {
-    //     string(name: "JenkinsNodes",
-    //     defaultValue: "AzureAgent06, AzureAgent01, AzureAgent02, AzureAgent03, AzureAgent04, AzureAgent05",
-    //     description: "Comma separated Jenkins nodes to clean docker")
-    // }
+    triggers {
+        cron('''TZ=Europe/Kiev
+        20 15 * * *''')
+    }
 
     agent {
         node {
@@ -31,23 +34,12 @@ pipeline {
                       def JenkinsNodes = 'AzureAgent06, AzureAgent01, AzureAgent02, AzureAgent03, AzureAgent04, AzureAgent05'
                       JenkinsNodes.tokenize(',').each {
                         stage("${it}") {
+                            node { label "${it}"}
                             script{
                                 Clean("${it}")
                             }
                         }
                       }
-                    }
-                }
-            }
-        }
-
-        stage ('Clean Images') {
-            steps {
-                script {
-                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') { 
-                     $NodesList.eachWithIndex  {
-                        println("Index: $i Value: $it")
-                        }
                     }
                 }
             }
