@@ -14,7 +14,7 @@ pipeline {
     parameters {
         string(name: "JenkinsNodes",
         defaultValue: "AzureAgent06, AzureAgent01, AzureAgent02, AzureAgent03, AzureAgent04, AzureAgent05"
-        description: "Comma separated Jenkins nodes to clean docker"
+        description: "Comma separated Jenkins nodes to clean docker")
     }
 
     agent {
