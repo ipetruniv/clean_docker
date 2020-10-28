@@ -23,13 +23,13 @@ pipeline {
                       JenkinsNodes.tokenize(',').each {
                         stage("${it}") {
                             node { label "${it}"}
-                                sh"""#!/bin/bash
+                                sh("""#!/bin/bash
                                     echo "Stopped containers:"
                                     docker ps -a
                                     echo "Images:"
                                     docker images ls
                                     echo "Done"
-                                    """
+                                    """)
                             }
                         }
                     }
