@@ -5,7 +5,7 @@ import java.time.*
 def Clean(NodeName) {
     script{
            sh """
-           echo ${NodeName} 
+           echo "Nodename ${NodeName}"
             """
             }
         }
@@ -30,8 +30,12 @@ pipeline {
                      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                       def JenkinsNodes = 'AzureAgent06, AzureAgent01, AzureAgent02, AzureAgent03, AzureAgent04, AzureAgent05'
                       JenkinsNodes.tokenize(',').each {
-                        println "Item: ${it}"
+                        stage("${it}") {
+                            script{
+                                Clean("${it}")
+                            }
                         }
+                      }
                     }
                 }
             }
