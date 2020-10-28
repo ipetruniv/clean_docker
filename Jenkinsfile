@@ -29,7 +29,11 @@ pipeline {
                 script {
                      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                       NodesList = "${JenkinsNodes}".split(', ')
+                      println("${NodesList}")
+
                       NodeListLenght = NodesList.length - 1
+                      println("${NodeListLenght}")
+
                       for ( idx=0; idx<NodeListLenght; idx+=1 ){
                         def NodeName=NodeList[idx]
                         Clean(NodeName)
@@ -42,8 +46,8 @@ pipeline {
         stage ('Clean Images') {
             steps {
                 script {
-                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    $JenkinsNodes.eachWithIndex  {
+                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') { 
+                     NodesList.eachWithIndex  {
                         println("Index: $i Value: $it")
                     }
                     }
